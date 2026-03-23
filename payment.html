@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment &mdash; AI Seminar 2026</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="logo.png">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="home.html" class="nav-brand">
+        <img src="logo.png" alt="Logo">
+        <span>AI Seminar 2026</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="speaker.html">Speakers</a></li>
+        <li><a href="benefits.html">Benefits</a></li>
+        <li><a href="testimonials.html">Testimonials</a></li>
+        <li><a href="location.html">Venue</a></li>
+        <li><a href="registration.html" class="cta-link">Register</a></li>
+      </ul>
+      <button class="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="page">
+
+    <section class="section">
+      <div class="text-center">
+        <span class="section-label">Final Step</span>
+        <h2 class="section-title">Complete Payment</h2>
+        <p class="section-subtitle">Confirm your registration by completing the payment of <strong>$250.00</strong> for the AI Technology &amp; Career Opportunities Seminar.</p>
+      </div>
+
+      <div class="form-container">
+
+        <!-- Order Summary -->
+        <div class="form-card" style="margin-bottom: 15px;">
+          <h3 style="font-size: 15px; margin-bottom: 12px;">Order Summary</h3>
+          <div class="order-row">
+            <span style="color: #666;">Seminar Registration (1&times;)</span>
+            <span style="font-weight: bold;">$250.00</span>
+          </div>
+          <div class="order-row">
+            <span style="color: #666;">Date</span>
+            <span style="color: #666;">April 15, 2026</span>
+          </div>
+          <div class="order-row">
+            <span style="color: #666;">Venue</span>
+            <span style="color: #666;">Pune International Convention Center</span>
+          </div>
+          <div class="order-total">
+            <span>Total</span>
+            <span class="amount">$250.00</span>
+          </div>
+        </div>
+
+        <!-- Payment Form -->
+        <div class="form-card">
+          <h3 style="font-size: 15px; margin-bottom: 15px;">Card Details</h3>
+
+          <div class="form-grid" id="payForm">
+            <div class="form-group full-width">
+              <label for="cardName">Name on Card</label>
+              <input type="text" id="cardName" placeholder="John Doe" required>
+            </div>
+
+            <div class="form-group full-width">
+              <label for="cardNumber">Card Number</label>
+              <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" required>
+            </div>
+
+            <div class="form-group">
+              <label for="expiry">Expiry Date</label>
+              <input type="text" id="expiry" placeholder="MM/YY" maxlength="5" required>
+            </div>
+
+            <div class="form-group">
+              <label for="cvv">CVV</label>
+              <input type="password" id="cvv" placeholder="***" maxlength="4" required>
+            </div>
+          </div>
+
+          <div class="form-submit">
+            <button class="btn btn-primary" id="payBtn" type="button">Pay $250.00 &rarr;</button>
+          </div>
+
+          <!-- Success -->
+          <div id="successMsg" class="success-msg">
+            <div style="font-size: 28px; margin-bottom: 8px;">&#10003;</div>
+            <p style="font-weight: bold; font-size: 16px; margin-bottom: 4px;">Payment Successful!</p>
+            <p style="color: #666; font-size: 14px;">Your spot is confirmed. A receipt has been sent to your email.</p>
+            <a href="home.html" class="btn btn-outline" style="margin-top: 15px;">Back to Home</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <ul class="footer-links">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="speaker.html">Speakers</a></li>
+        <li><a href="benefits.html">Benefits</a></li>
+        <li><a href="testimonials.html">Testimonials</a></li>
+        <li><a href="location.html">Venue</a></li>
+        <li><a href="registration.html">Register</a></li>
+      </ul>
+      <p>&copy; 2026 AI Technology &amp; Career Opportunities Seminar. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <script src="main.js"></script>
+  <script>
+    // Card number formatting
+    var cardNum = document.getElementById('cardNumber');
+    cardNum.addEventListener('input', function() {
+      var v = this.value.replace(/\D/g, '').substring(0, 16);
+      this.value = v.replace(/(.{4})/g, '$1 ').trim();
+    });
+
+    // Expiry formatting
+    var expiry = document.getElementById('expiry');
+    expiry.addEventListener('input', function() {
+      var v = this.value.replace(/\D/g, '').substring(0, 4);
+      if (v.length >= 3) v = v.substring(0, 2) + '/' + v.substring(2);
+      this.value = v;
+    });
+
+    // Submit
+    document.getElementById('payBtn').addEventListener('click', function() {
+      var fields = document.querySelectorAll('#payForm input');
+      var valid = true;
+
+      fields.forEach(function(f) {
+        if (!f.value.trim()) {
+          valid = false;
+          f.style.borderColor = '#e55';
+          f.addEventListener('input', function() { f.style.borderColor = ''; }, { once: true });
+        }
+      });
+
+      if (cardNum.value.replace(/\s/g, '').length < 16) {
+        valid = false;
+        cardNum.style.borderColor = '#e55';
+      }
+
+      if (valid) {
+        document.getElementById('payForm').style.display = 'none';
+        document.getElementById('payBtn').style.display = 'none';
+        document.getElementById('successMsg').style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>
